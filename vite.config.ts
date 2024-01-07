@@ -8,9 +8,21 @@ const manifest: ManifestV3Export = defineManifest(async () => ({
   name: package_.name.replace(/-/g, " "),
   version: package_.version,
   host_permissions: ["file:///*"],
+  permissions: ["downloads"],
+  action: {
+    default_popup: "index.html",
+  },
 }));
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), crx({ manifest })],
+  // https://github.com/crxjs/chrome-extension-tools/issues/696#issuecomment-1526138970
+  server: {
+    port: 5173,
+    strictPort: true,
+    hmr: {
+      port: 5173,
+    },
+  },
 });
