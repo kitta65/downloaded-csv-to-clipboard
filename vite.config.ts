@@ -12,6 +12,12 @@ const manifest: ManifestV3Export = defineManifest(async () => ({
     service_worker: "src/background.ts",
   },
   host_permissions: ["file:///*"],
+  content_scripts: [
+    {
+      js: ["src/content.ts"],
+      matches: ["<all_urls>"],
+    },
+  ],
 }));
 
 // https://vitejs.dev/config/
