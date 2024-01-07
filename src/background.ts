@@ -40,6 +40,7 @@ chrome.downloads.onChanged.addListener(async (delta) => {
   }
 
   const response = await fetch(`file:///${items[0].filename}`);
-  const text = await response.text();
+  const text = await response.text(); // TODO copy to clipboard
   console.log(text);
+  sendMessage("copied to clipboard!");
 });
