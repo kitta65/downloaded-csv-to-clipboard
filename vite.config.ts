@@ -5,7 +5,7 @@ import package_ from "./package.json";
 
 const manifest: ManifestV3Export = defineManifest(async () => ({
   manifest_version: 3,
-  name: "Saved CSV to Clipboard",
+  name: "Downloaded CSV to Clipboard",
   version: package_.version,
   permissions: ["downloads"],
   background: {
