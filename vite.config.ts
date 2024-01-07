@@ -6,7 +6,7 @@ import packageJson from "./package.json";
 
 const manifest = defineManifest(async () => ({
   manifest_version: 3,
-  name: "BigQuery Confirm Dialog",
+  name: "Saved CSV to Clipboard",
   version: packageJson.version,
   action: {
     default_popup: "index.html",
