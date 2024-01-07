@@ -1,3 +1,4 @@
+import Papa from "papaparse";
 import Message from "./message.ts";
 
 async function sendMessage(message: Message) {
@@ -42,7 +43,10 @@ chrome.downloads.onChanged.addListener(async (delta) => {
   }
 
   const response = await fetch(`file:///${items[0].filename}`);
-  const text = await response.text(); // TODO copy to clipboard
-  console.log(text);
+  const csv = await response.text(); // TODO copy to clipboard
+  console.log(csv);
+  const result = Papa.parse(csv);
+  const tsv = Papa.unparse(result.data, { delimiter: "\t" });
+  console.log(tsv);
   sendMessage(new Message("copied to clipboard", 0));
 });
