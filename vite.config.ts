@@ -1,8 +1,15 @@
-/// <reference types="vitest" />
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { crx, defineManifest, ManifestV3Export } from "@crxjs/vite-plugin";
 import package_ from "./package.json";
+
+// i don't know why but tripl slash is not working
+// https://stackoverflow.com/questions/72146352/vitest-defineconfig-test-does-not-exist-in-type-userconfigexport
+import type { InlineConfig } from "vitest";
+import type { UserConfig } from "vite";
+interface VitestConfigExport extends UserConfig {
+  test: InlineConfig;
+}
 
 const manifest: ManifestV3Export = defineManifest(async () => ({
   manifest_version: 3,
@@ -43,4 +50,4 @@ export default defineConfig({
       port: 5173,
     },
   },
-});
+} as VitestConfigExport);
