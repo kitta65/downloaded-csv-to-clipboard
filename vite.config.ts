@@ -7,11 +7,18 @@ import package_ from "./package.json";
 const manifest: ManifestV3Export = defineManifest(async () => ({
   manifest_version: 3,
   name: package_.name.replace(/-/g, " "),
+  description: "copy downloaded CSV file to clipboard",
   version: package_.version,
   host_permissions: ["file:///*"],
   permissions: ["downloads"],
   action: {
     default_popup: "index.html",
+  },
+  icons: {
+    "16": "images/icon-16.png",
+    "32": "images/icon-32.png",
+    "48": "images/icon-48.png",
+    "128": "images/icon-128.png",
   },
 }));
 
