@@ -20,6 +20,8 @@ function createImg(): Element {
   return img;
 }
 
+createImg();
+
 chrome.runtime.onMessage.addListener((data) => {
   const img = createImg();
   img.addEventListener("click", async () => {
