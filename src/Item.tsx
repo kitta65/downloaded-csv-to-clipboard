@@ -1,8 +1,11 @@
-import { csv2tsv } from "./utils";
+import { useState } from "react";
+import { csv2tsv, sleep } from "./utils";
 
 type Props = {
   item: chrome.downloads.DownloadItem;
 };
+
+type Status = "ready" | "processing" | "done" | "large" | "unknown" | "removed";
 
 function basename(path: string): string {
   // https://stackoverflow.com/questions/423376/how-to-get-the-file-name-from-a-full-path-using-javascript
@@ -10,24 +13,55 @@ function basename(path: string): string {
 }
 
 export default function Item(props: Props) {
-  async function handleClick() {
+  const [status, setStatus] = useState<Status>(() => {
     const item = props.item;
-    // check file size
-    if (
-      // TODO check if removed
-      item.totalBytes < 0 ||
-      1 * 1024 ** 2 < item.totalBytes // 1MB
-    ) {
-      const msg = `${item.filename} is too large or unknown`;
-      console.log(msg);
-      return;
+    if (!item.exists) {
+      return "removed";
+    } else if (item.totalBytes < 0) {
+      return "unknown";
+    } else if (1 * 1024 ** 2 < item.totalBytes) {
+      // 1MB
+      return "large";
+    } else {
+      return "ready";
     }
+  });
 
+  async function handleClick() {
+    if (status !== "ready") return; // NOP
+    setStatus("processing");
+
+    const item = props.item;
     const response = await fetch(`file:///${item.filename}`);
     const csv = await response.text();
     const tsv = csv2tsv(csv);
-    window.navigator.clipboard.writeText(tsv);
+    await window.navigator.clipboard.writeText(tsv);
+    setStatus("done");
+    await sleep(1000); // to avoid clicking repeatedly
+    setStatus("ready");
   }
 
-  return <p onClick={handleClick}>{basename(props.item.filename)}</p>;
+  function render() {
+    const color = status === "ready" ? "#000000" : "#666666";
+
+    let text;
+    switch (status) {
+      case "processing":
+        text = "processing ...";
+        break;
+      case "done":
+        text = "copied!";
+        break;
+      default:
+        text = basename(props.item.filename);
+    }
+
+    return (
+      <div onClick={handleClick} style={{ color: color }}>
+        {text}
+      </div>
+    );
+  }
+
+  return <>{render()}</>;
 }
