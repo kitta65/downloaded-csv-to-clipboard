@@ -5,9 +5,6 @@ async function sendMessage(text: string) {
   if (tabs.length !== 1 || !tabs[0].id) {
     return;
   }
-
-  // sometimes fails
-  // especially when recent download history is visible
   await chrome.tabs
     .sendMessage(tabs[0].id, text)
     .catch((err) => console.log(err));
@@ -30,7 +27,7 @@ chrome.downloads.onChanged.addListener(async (delta) => {
   if (!item.filename.endsWith(".csv")) return;
 
   // check file status
-  if (getItemStatus(item) === "ready") return;
+  if (getItemStatus(item) !== "ready") return;
 
   const tsv = await getTsv(item.filename);
   sendMessage(tsv);
