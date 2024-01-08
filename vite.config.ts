@@ -20,6 +20,15 @@ const manifest: ManifestV3Export = defineManifest(async () => ({
     "48": "images/icon-48.png",
     "128": "images/icon-128.png",
   },
+  content_scripts: [
+    {
+      matches: ["<all_urls>"],
+      js: ["src/content.ts"],
+    },
+  ],
+  background: {
+    service_worker: "src/background.ts",
+  },
 }));
 
 // https://vitejs.dev/config/

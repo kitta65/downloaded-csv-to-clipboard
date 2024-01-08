@@ -1,11 +1,9 @@
 import { useState } from "react";
-import { csv2tsv, sleep } from "./utils";
+import { sleep, getTsv, getItemStatus, ItemStatus } from "./utils";
 
 type Props = {
   item: chrome.downloads.DownloadItem;
 };
-
-type Status = "ready" | "processing" | "done" | "large" | "unknown" | "removed";
 
 function basename(path: string): string {
   // https://stackoverflow.com/questions/423376/how-to-get-the-file-name-from-a-full-path-using-javascript
@@ -13,28 +11,16 @@ function basename(path: string): string {
 }
 
 export default function Item(props: Props) {
-  const [status, setStatus] = useState<Status>(() => {
-    const item = props.item;
-    if (!item.exists) {
-      return "removed";
-    } else if (item.totalBytes < 0) {
-      return "unknown";
-    } else if (1 * 1024 ** 2 < item.totalBytes) {
-      // 1MB
-      return "large";
-    } else {
-      return "ready";
-    }
-  });
+  const [status, setStatus] = useState<ItemStatus>(() =>
+    getItemStatus(props.item),
+  );
 
   async function handleClick() {
     if (status !== "ready") return; // NOP
     setStatus("processing");
 
     const item = props.item;
-    const response = await fetch(`file:///${item.filename}`);
-    const csv = await response.text();
-    const tsv = csv2tsv(csv);
+    const tsv = await getTsv(item.filename);
     await window.navigator.clipboard.writeText(tsv);
     setStatus("done");
     await sleep(1000); // to avoid clicking repeatedly
