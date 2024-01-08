@@ -1,4 +1,4 @@
-import Papa from "papaparse";
+import { csv2tsv } from "./utils";
 
 type Props = {
   item: chrome.downloads.DownloadItem;
@@ -7,12 +7,6 @@ type Props = {
 function basename(path: string): string {
   // https://stackoverflow.com/questions/423376/how-to-get-the-file-name-from-a-full-path-using-javascript
   return path.split("\\").pop()!.split("/").pop()!;
-}
-
-function csv2tsv(csv: string): string {
-  const parsed = Papa.parse(csv);
-  const tsv = Papa.unparse(parsed.data, { delimiter: "\t" });
-  return tsv;
 }
 
 export default function Item(props: Props) {

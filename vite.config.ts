@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { crx, defineManifest, ManifestV3Export } from "@crxjs/vite-plugin";
@@ -17,6 +18,7 @@ const manifest: ManifestV3Export = defineManifest(async () => ({
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), crx({ manifest })],
+  test: {},
   // https://github.com/crxjs/chrome-extension-tools/issues/696#issuecomment-1526138970
   server: {
     port: 5173,
