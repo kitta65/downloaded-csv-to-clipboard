@@ -42,7 +42,7 @@ export default function Item(props: Props) {
   }
 
   function render() {
-    const color = status === "ready" ? "#000000" : "#666666";
+    const color = status === "ready" ? "" : "#999999";
 
     let text;
     switch (status) {
@@ -57,7 +57,11 @@ export default function Item(props: Props) {
     }
 
     return (
-      <div onClick={handleClick} style={{ color: color }}>
+      <div
+        onClick={handleClick}
+        style={{ color: color }}
+        className="downloaded-item"
+      >
         {text}
       </div>
     );
