@@ -12,3 +12,10 @@ jobs:
 
       - run: npm ci
       - run: npm test
+
+      # upload zip for debug
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: downloaded_csv_to_clipboard.zip
+          path: ./downloaded_csv_to_clipboard.zip
