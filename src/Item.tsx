@@ -8,5 +8,23 @@ function basename(path: string) {
 }
 
 export default function Item(props: Props) {
-  return <p>{basename(props.item.filename)}</p>;
+  async function handleClick() {
+    const item = props.item;
+    // check file size
+    if (
+      // TODO check if removed
+      item.totalBytes < 0 ||
+      1 * 1024 ** 2 < item.totalBytes // 1MB
+    ) {
+      const msg = `${item.filename} is too large or unknown`;
+      console.log(msg);
+      return;
+    }
+
+    const response = await fetch(`file:///${item.filename}`);
+    const csv = await response.text(); // TODO copy to clipboard
+    window.navigator.clipboard.writeText(csv);
+  }
+
+  return <p onClick={handleClick}>{basename(props.item.filename)}</p>;
 }

@@ -20,11 +20,13 @@ export default function App() {
 
   return (
     <>
-      {items.map((item) => (
-        <div key={item.id}>
-          <Item item={item} />
-        </div>
-      ))}
+      {items
+        .filter((item) => item.filename.endsWith(".csv"))
+        .map((item) => (
+          <div key={item.id}>
+            <Item item={item} />
+          </div>
+        ))}
     </>
   );
 }
