@@ -7,6 +7,12 @@ A chrome extension that copies downloaded CSV to clipboard.
 This extension is not yet published in Chrome Web Store.
 You have to download a zip file from the release page of this repository.
 
+After installation, make sure that the extension can access to file urls.
+
+1. Open `Manage extensions` page (`chrome://extensions/`).
+2. Go to `Details` of this extension.
+3. Check `Allow access to file URLs` option.
+
 ## Usage
 
 Recently downloaded CSV files are listed in popup.
