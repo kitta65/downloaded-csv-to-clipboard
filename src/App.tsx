@@ -15,12 +15,12 @@ export default function App() {
     },
     // only run after initial render
     // https://react.dev/reference/react/useEffect#specifying-reactive-dependencies
-    []
+    [],
   );
 
   return (
     <>
-    <h1>Downloaded CSV to Clipboard</h1>
+      <h1>Downloaded CSV to Clipboard</h1>
       {items
         .filter((item) => item.filename.endsWith(".csv"))
         .map((item) => (
