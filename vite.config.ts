@@ -23,7 +23,7 @@ const manifest: ManifestV3Export = defineManifest(async () => ({
   content_scripts: [
     {
       matches: ["<all_urls>"],
-      ts: ["src/content.ts"],
+      js: ["src/content.ts"],
     },
   ],
   background: {
