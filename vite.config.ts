@@ -50,4 +50,7 @@ export default defineConfig({
       port: 5173,
     },
   },
+  build: {
+    assetsInlineLimit: 0,
+  },
 } as VitestConfigExport);
