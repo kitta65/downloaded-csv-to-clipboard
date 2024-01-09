@@ -15,9 +15,10 @@ After installation, make sure that the extension can access to file urls.
 
 ## Usage
 
-Recently downloaded CSV files are listed in popup.
-Click a filename and the data is copied to clipboard.
+Click a filename listed in popup or an icon that appears after downloading.
+The data will then be copied to clipboard.
+
 When copied, the data is converted to TSV (Tab Separated Values).
-So you can easily paste it Microsoft Excel, Google Sheets and so on.
+So you can easily paste it into Microsoft Excel, Google Sheets and so on.
 
 ![screenshot](https://github.com/kitta65/downloaded-csv-to-clipboard/assets/26474260/992ef2a4-9e55-4f43-b7d8-ca0ba10421a2)
