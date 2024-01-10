@@ -23,8 +23,9 @@ function createImg(): Element {
 chrome.runtime.onMessage.addListener((data) => {
   const img = createImg();
   img.addEventListener("click", async () => {
-    window.navigator.clipboard.writeText(data);
-    alert("copied!");
+    window.navigator.clipboard.writeText(data).then(() => {
+      alert("copied!");
+    });
   });
   document.body.append(img);
   img
