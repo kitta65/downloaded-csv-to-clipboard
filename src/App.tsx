@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import "./App.css";
 import Item from "./Item.tsx";
 
 export default function App() {
