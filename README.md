@@ -4,14 +4,14 @@ A chrome extension that copies downloaded CSV to clipboard.
 
 ## Installation
 
-This extension is not yet published in Chrome Web Store.
-You have to download a zip file from the release page of this repository.
+Go to the [Chrome Web Store](https://chromewebstore.google.com/detail/downloaded-csv-to-clipboa/aphdhjohfdommnchlgjphpmndpldbihm).
 
-After installation, make sure that the extension can access to file urls.
-
-1. Open `Manage extensions` page (`chrome://extensions/`).
-2. Go to `Details` of this extension.
-3. Check `Allow access to file URLs` option.
+> [!NOTE]
+> After installation, make sure that the extension can access to file urls.
+>
+> 1. Open `Manage extensions` page (`chrome://extensions/`).
+> 2. Go to `Details` of this extension.
+> 3. Check `Allow access to file URLs` option.
 
 ## Usage
 
