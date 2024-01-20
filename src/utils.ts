@@ -13,7 +13,14 @@ export function csv2tsv(csv: string): string {
 
 export function arrayBuffer2string(buffer: ArrayBuffer): string {
   const encoding = chardet.detect(new Uint8Array(buffer));
-  const decoder = new TextDecoder(encoding || "utf-8");
+  let decoder;
+  try {
+    decoder = new TextDecoder(encoding || "utf-8");
+  } catch (e) {
+    // TextDecoder does not support some encodings (e.g. UTF-32 LE).
+    console.log(e);
+    decoder = new TextDecoder("utf-8");
+  }
   return decoder.decode(buffer);
 }
 
