@@ -17,8 +17,8 @@ jobs:
       # upload zip for debug
       - uses: actions/upload-artifact@v4
         with:
-          name: downloaded_csv_to_clipboard.zip
-          path: ./downloaded_csv_to_clipboard.zip
+          name: downloaded_csv_to_clipboard
+          path: ./dist
 
       # always pass when ref_type == 'branch'
       - uses: dr666m1/tag-version-match@main
