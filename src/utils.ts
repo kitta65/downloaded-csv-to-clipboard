@@ -12,7 +12,6 @@ export function csv2tsv(csv: string): string {
 }
 
 export function arrayBuffer2string(buffer: ArrayBuffer): string {
-  console.log(buffer);
   const encoding = chardet.detect(new Uint8Array(buffer));
   const decoder = new TextDecoder(encoding || "utf-8");
   return decoder.decode(buffer);
