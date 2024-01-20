@@ -1,10 +1,16 @@
 import { useState, useEffect } from "react";
 import Item from "./Item.tsx";
+import Instruction from "./Instruction.tsx";
 
 export default function App() {
   const [items, setItems] = useState<chrome.downloads.DownloadItem[]>([]);
+  const [allowed, setAllowed] = useState<boolean>(true);
+
   useEffect(
     () => {
+      chrome.extension
+        .isAllowedFileSchemeAccess()
+        .then((bool) => setAllowed(bool));
       chrome.downloads
         .search({
           limit: 10,
@@ -17,16 +23,24 @@ export default function App() {
     [],
   );
 
+  function render() {
+    if (!allowed) {
+      return <Instruction />;
+    }
+
+    return items
+      .filter((item) => item.filename.endsWith(".csv"))
+      .map((item) => (
+        <div key={item.id}>
+          <Item item={item} />
+        </div>
+      ));
+  }
+
   return (
     <>
       <h1>Downloaded CSV to Clipboard</h1>
-      {items
-        .filter((item) => item.filename.endsWith(".csv"))
-        .map((item) => (
-          <div key={item.id}>
-            <Item item={item} />
-          </div>
-        ))}
+      {render()}
     </>
   );
 }
