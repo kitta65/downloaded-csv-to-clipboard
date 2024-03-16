@@ -47,5 +47,9 @@ describe("encode file path", () => {
       "C%3A\\Users\\username\\Downloads\\filename.csv",
     );
   });
-  // TODO mac style
+  test("windows style", () => {
+    expect(encodeFilePath("/Users/username/Downloads/filename.csv")).toBe(
+      "/Users/username/Downloads/filename.csv",
+    );
+  });
 });
