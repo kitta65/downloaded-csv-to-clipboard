@@ -24,8 +24,16 @@ export function arrayBuffer2string(buffer: ArrayBuffer): string {
   return decoder.decode(buffer);
 }
 
-export async function getTsv(filename: string) {
-  const response = await fetch(`file:///${filename}`);
+export function encodeFilePath(abspath: string) {
+  const delimiter = abspath.startsWith("/") ? "/" : "\\";
+  const splitted = abspath.split(delimiter);
+  const encoded = splitted.map((x) => encodeURIComponent(x)).join(delimiter);
+  return encoded;
+}
+
+export async function getTsv(abspath: string) {
+  const encoded = encodeFilePath(abspath);
+  const response = await fetch(`file:///${encoded}`);
   const csv = await response
     .arrayBuffer()
     .then((buffer) => arrayBuffer2string(buffer));

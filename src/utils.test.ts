@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { csv2tsv, arrayBuffer2string } from "./utils";
+import { csv2tsv, arrayBuffer2string, encodeFilePath } from "./utils";
 
 describe("csv2tsv", () => {
   test("simple", () => {
@@ -30,4 +30,22 @@ describe("arrayBuffer2string", () => {
       ),
     ).toBe("おはよう");
   });
+});
+
+describe("encode file path", () => {
+  test("NOP", () => {
+    expect(encodeFilePath("filename.csv")).toBe("filename.csv");
+  });
+  test("white space", () => {
+    expect(encodeFilePath("filename (1).csv")).toBe("filename%20(1).csv");
+  });
+  test("sharp", () => {
+    expect(encodeFilePath("filename#1.csv")).toBe("filename%231.csv");
+  });
+  test("windows style", () => {
+    expect(encodeFilePath("C:\\Users\\username\\Downloads\\filename.csv")).toBe(
+      "C%3A\\Users\\username\\Downloads\\filename.csv",
+    );
+  });
+  // TODO mac style
 });
